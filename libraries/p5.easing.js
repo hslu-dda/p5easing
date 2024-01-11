@@ -1,6 +1,32 @@
+/*
+Robert Penners Easing in p5 style
+Made by lovely people at Data Design + Art, @HSLU Luzern Switzerland
+
+See https://github.com/processing/p5.js/blob/main/contributor_docs/creating_libraries.md
+to get started with some basics to write P5js libraries
+*/
+
+console.log(
+  "👋 Happy Coding with p5.easing! Made with ❤️ by data & design ethusiast at Data Design+Art, HSLU Luzern Switzerland"
+);
+
+/**
+ * Returns the p5 instance from the window or the global p5 instance.
+ * @returns {p5} The p5 instance.
+ */
 function _getP5Instance() {
   return window._p5Instance || p5.instance;
 }
+/**
+ * Adds custom easing functions to the p5 prototype.
+ *
+ * @param {number} startTime - The start time for the easing animation.
+ * @param {number} duration - The duration of the easing animation.
+ * @param {number} startValue - The starting value of the animation.
+ * @param {number} endValue - The ending value of the animation.
+ * @param {string} easingFunctionName - The name of the easing function to use.
+ * @returns {number} The eased value at the current time.
+ */
 p5.prototype.ease = function (
   startTime,
   duration,
@@ -9,19 +35,34 @@ p5.prototype.ease = function (
   easingFunctionName
 ) {
   const p = _getP5Instance();
-  if (startTime > p.millis()) return startValue;
-  const easingFunction = EasingFunctions[easingFunctionName];
+
+  // If the animation hasn't started yet, return the start value
+  if (startTime > p.millis()) return startValue; // Get the easing function based on the provided name
+  const easingFunction = EasingFunctions[easingFunctionName]; // Calculate elapsed time and percentage completion
   const elapsedTime = p.millis() - startTime;
   const percent = Math.min(elapsedTime / duration, 1);
 
+  // If the easing function is valid, apply it and return the result
   if (typeof easingFunction === "function") {
     return easingFunction(percent, startValue, endValue - startValue, 1);
   } else {
+    // Log an error for an invalid easing function name
     console.error(`Invalid easing function name: ${easingFunctionName}`);
     return NaN;
   }
 };
 
+/**
+ * Returns an array of available easing function names.
+ * @returns {string[]} Array of easing function names.
+ */
+p5.prototype.getEasingFunctionNames = () => {
+  return Object.keys(EasingFunctions);
+};
+
+/**
+ * Collection of Robert Penners easing functions.
+ */
 const EasingFunctions = {
   /*
 t: Represents the elapsed time.
@@ -29,7 +70,6 @@ b: Represents the starting value.
 c: Represents the change in value.
 d: Represents the duration.
 */
-
   easeLinear(t, b, c, d) {
     return (c * t) / d + b;
   },
@@ -193,7 +233,4 @@ d: Represents the duration.
       b
     );
   },
-};
-p5.prototype.getEasingFunctionNames = () => {
-  return Object.keys(EasingFunctions);
 };
