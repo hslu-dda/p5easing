@@ -14,7 +14,8 @@ function draw() {
 }
 
 function mouseClicked() {
-  startValue = endValue;
+  let v = ease(startTime, 2000, startValue, endValue, "easeOutBounce");
+  startValue = v;
   endValue = random(width);
   startTime = millis();
 }

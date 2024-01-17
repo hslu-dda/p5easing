@@ -2,17 +2,23 @@ html,
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
 }
 
-#sketch-container-1,
-#sketch-container-2,
-#sketch-container-3 {
+.grid-container {
   margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.grid-item {
+  flex: 0 0 auto; /* Equivalent to flex: 1; flex-shrink: 0; */
+  box-sizing: border-box;
+  border: solid thin grey;
 }
 
 canvas {
-  display: block;
+  width: 100%; /* Make the canvas fill the entire width of its container */
+  height: auto; /* Maintain the aspect ratio */
+  display: block; /* Ensure the canvas behaves as a block element */
 }
