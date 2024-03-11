@@ -9,7 +9,10 @@ function setup() {
 
 function draw() {
   background(220);
+
+  // ease by milliseconds
   let v = ease(startTime, 2000, startValue, endValue, "easeOutBounce");
+  fill(255);
   circle(width / 2, height / 2, v);
 }
 

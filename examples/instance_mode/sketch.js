@@ -18,7 +18,7 @@ const sketch = function (p) {
   };
 
   p.draw = function () {
-    p.background(240);
+    p.background(0);
     let v = p.ease(startTime, duration, startValue, endValue, "easeOutBounce");
     p.circle(p.width / 2, p.height / 2, v);
   };
@@ -144,8 +144,10 @@ const sketch5 = function (p) {
   let startTime = 0;
   let startHue = 0;
   let targetHue = 60;
-
   let hues = [];
+
+  let startValue = 0;
+  let endValue = min;
 
   p.setup = function () {
     // Set up a global object to capture this instance.
@@ -169,19 +171,27 @@ const sketch5 = function (p) {
     p.background(0, 0, 94);
 
     hues.forEach((element, index) => {
-      let h = p.ease(
+      let hue = p.ease(
         startTime,
         duration,
         startHue,
         targetHue,
         element.easingFunction
       );
+      let h = p.ease(
+        startTime,
+        duration,
+        startValue,
+        endValue,
+        element.easingFunction
+      );
 
-      element.hue = h;
+      element.hue = hue;
       let c = p.color(element.hue, 100, 100);
       let x = p.map(index, 0, hues.length - 1, 75, p.width - 75);
+
       p.fill(c);
-      p.rect(x, p.height / 2, 50);
+      p.rect(x, p.height / 2, 50, h);
     });
   };
 
@@ -189,6 +199,8 @@ const sketch5 = function (p) {
     startTime = p.millis();
     startHue = hues[0].hue;
     targetHue = (targetHue + 60) % 360;
+    startValue = endValue;
+    endValue == min ? (endValue = max) : (endValue = min);
   };
 };
 // Create a p5 instance with the sketch
