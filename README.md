@@ -2,72 +2,103 @@
 
 Welcome to the p5.easing library, a collection of custom easing functions for p5.js based on Robert Penner's easing equations.
 
-**Easing Function Parameters:**
-
-The `ease()` function takes five parameters:
-
-- `startTime`: The start time for the easing animation, measured in milliseconds.
-- `duration`: The total duration of the easing animation in milliseconds.
-- `startValue`: The starting value of the animation.
-- `endValue`: The ending value of the animation.
-- `easingFunctionName`: The name of the easing function to use. This determines the shape of the easing curve.
-
-```javascript
-let easedValue = ease(
-  startTime,
-  duration,
-  startValue,
-  endValue,
-  easingFunctionName
-);
-```
-
 ## Getting Started
 
 1. **Installation:**
 
-- Include it in your HTML file:
+Include it in your HTML file:
 
-  ```html
-  <script src="path/to/p5.easing.js"></script>
-  ```
+```html
+<script src="path/to/p5.easing.js"></script>
+```
 
 2. **Usage:**
 
-- Initialize your p5.js sketch and set up the canvas:
+   **_Easing by Time_**
+   Easing by time allows you to smoothly transition between values over a specified duration. Here's how to use it:
 
-  ```javascript
-  let startTime = 0;
-  let startValue = 0;
-  let endValue = 200;
+   Initialize your p5.js sketch and set up the canvas:
 
-  function setup() {
-    createCanvas(400, 400);
-    console.log(getEasingFunctionNames());
-  }
-  ```
+   ```javascript
+   // Define easing parameters
+   const startTime = millis();
+   const duration = 1000; // 1 second
+   const startValue = 0;
+   const endValue = 100;
+   const easingFunction = "easeInOutQuad"; // Choose from available easing functions
+   ```
 
-- In your `draw()` function, use the `ease()` function to create animated effects:
+   In your `draw()` function, use the `ease()` function to create animated effects:
 
-  ```javascript
-  function draw() {
-    background(220);
-    let v = ease(startTime, 2000, startValue, endValue, "easeOutBounce");
-    circle(width / 2, height / 2, v);
-  }
-  ```
+   ```javascript
+   function draw() {
+     background(220);
+     let v = ease(startTime, duration, startValue, endValue, easingFunction);
+     circle(width / 2, height / 2, v);
+   }
+   ```
 
-- Update the animation parameters on mouse click:
+   Maybe you want to update the animation parameters on mouse click:
 
-  ```javascript
-  function mouseClicked() {
-    startValue = endValue;
-    endValue = random(width);
-    startTime = millis();
-  }
-  ```
+   ```javascript
+   function mouseClicked() {
+     startValue = endValue;
+     endValue = random(width);
+     startTime = millis();
+   }
+   ```
 
-- You can experiment with different easing functions by changing the last parameter in the `ease()` function.
+   You can experiment with different easing functions by changing the last parameter in the `ease()` function.
+
+   **_Easing by Frames_**
+
+   Easing by frames allows you to animate based on the number of frames, which is useful when rendering non-realtime animations. For instance, if you're saving your animation or working with a fixed, slow frame rate, you would use `easeByFrameSteps`. Here's how to use it:
+
+   ```javascript
+   // Define easing parameters
+   const startFrame = frameCount;
+   const durationFrames = 60; // 1 second at 60 frames per second
+   const startValue = 0;
+   const endValue = 100;
+   const easingFunction = "easeInOutQuad"; // Choose from available easing functions
+
+   // Call the easeByFrameSteps function to get the eased value
+   const easedValue = easeByFrameSteps(
+     startFrame,
+     durationFrames,
+     startValue,
+     endValue,
+     easingFunction
+   );
+   ```
+
+   **_Easing by Steps_**
+
+   easeBySteps is utilized for non-linear interpolation, where the easedValue represents the interpolated value between startValue and endValue based on the currentStep and numSteps parameters. This enables achieving smooth transitions or effects in your program that are not linearly related to time.
+
+   ```javascript
+   // Define easing parameters for non-linear interpolation
+   const currentStep = stepCount; // This could represent any step value you want to interpolate
+   const startStep = 0;
+   const numSteps = 60; // Total number of steps
+   const startValue = 0;
+   const endValue = 100;
+   const easingFunction = "easeInOutQuad"; // Choose from available easing functions
+
+   // Call the easeBySteps function to perform non-linear interpolation
+   const easedValue = easeBySteps(
+     currentStep,
+     startStep,
+     numSteps,
+     startValue,
+     endValue,
+     easingFunction
+   );
+
+   // Usage example: Non-linear interpolation
+   // In this example, we use easing to interpolate a value between startValue and endValue
+   // based on the currentStep and numSteps, achieving a non-linear interpolation effect.
+   ```
 
 3. **Easing Functions:**
 
