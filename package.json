@@ -1,6 +1,6 @@
 {
   "name": "p5-easing",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Robert Penner's Easing functions for p5.js",
   "main": "./lib/p5.easing.js",
   "scripts": {
