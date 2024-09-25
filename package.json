@@ -1,12 +1,12 @@
 {
   "name": "p5-easing",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Robert Penner's Easing functions for p5.js",
   "main": "index.js",
   "scripts": {
-  "version": "git add -A",
-  "postversion": "git push && git push --tags"
-},
+    "version": "git add -A",
+    "postversion": "git push && git push --tags"
+  },
   "keywords": [
     "p5",
     "easing",
