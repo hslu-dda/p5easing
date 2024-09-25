@@ -1,0 +1,71 @@
+# Development files
+.git
+.gitignore
+.eslintrc
+.prettierrc
+.vscode
+.idea
+
+# Build tools
+webpack.config.js
+rollup.config.js
+babel.config.js
+tsconfig.json
+
+# Test files
+test
+tests
+__tests__
+*.test.js
+*.spec.js
+
+# Documentation source files (if you have a separate docs site)
+docs-src
+
+# CI/CD
+.travis.yml
+.gitlab-ci.yml
+.github
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE specific files
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+tmp
+temp
